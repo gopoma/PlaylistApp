@@ -20,7 +20,13 @@ const query = function(sql, data) {
   return new Promise((resolve, reject) => {
     connection.query(sql, data, (error, result) => {
       if(error) {
-        console.log(error);
+        switch(error.errno) {
+          case 1062:
+            const [, value, key] = error.sqlMessage.match(/^.+'(.+)'.+'.+\.(.+)_.+'$/);
+            return reject(`The ${key} '${value}' is already in use`);
+          default:
+            return reject(error.sqlMessage)
+        }
         return reject(error);
       }
       return resolve(result);
@@ -31,9 +37,9 @@ const query = function(sql, data) {
 const insert = async function(tableName, data) {
   try {
     const result = await query("INSERT INTO ??(??) VALUES (?)", [tableName, Object.keys(data), Object.values(data)]);
-    return {inserted:true, result};
+    return {inserted:true, insertedId:result.insertId};
   } catch(error) {
-    return {inserted:false};
+    return {inserted:false, message:error};
   }
 }
 

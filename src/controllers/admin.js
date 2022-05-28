@@ -19,10 +19,18 @@ class AdminController {
     }
     const savedUser = await newUser.save();
     if(!savedUser.inserted) {
-      return res.json({success:false});
+      return res.json({
+        success:false,
+        message:savedUser.message
+      });
     }
 
-    return res.json(savedUser);
+    return res.json({
+      success:true,
+      message:"User CREATED successfully",
+      insertedId:savedUser.insertedId,
+      user:savedUser.user
+    });
   }
 }
 

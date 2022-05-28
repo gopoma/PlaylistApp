@@ -13,7 +13,8 @@ class UserModel {
     this.passwordRepeated = user.passwordRepeated;
     this.role = Number.parseInt(user.role);
     this.profilePicture = user.profilePicture;
-    this.birthday = user.birthday;
+    // TODO: Fix this Dangerous built
+    this.birthday = (user.birthday)?user.birthday:new Date().toLocaleString().split(" ")[0].split("/").reduceRight((a, x) => `${a}/${x}`);
     this.active = (user.active==="on")?1:0;
   }
 
@@ -60,7 +61,8 @@ class UserModel {
       active: this.active
     };
 
-    return await insert("users", user);
+    const result = await insert("users", user);
+    return {...result, user};
   }
 
   async #encrypt(str) {
