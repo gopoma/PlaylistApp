@@ -8,6 +8,7 @@ function admin(app) {
 
   router.get("/users", adminController.getAllUsers);
   router.get("/create-user", adminController.getCreateUserView);
+  router.post("/create-user", adminController.createUser);
 }
 
 module.exports = admin;

@@ -7,7 +7,22 @@ class AdminController {
   }
 
   getCreateUserView(req, res) {
-    return res.render("createUser");
+    return res.render("createUser", {title:"CREATE user"});
+  }
+
+  async createUser(req, res) {
+    const newUser = new UserModel(req.body);
+    const validation = newUser.validate();
+
+    if(!validation.success) {
+      return res.json(validation);
+    }
+    const savedUser = await newUser.save();
+    if(!savedUser.inserted) {
+      return res.json({success:false});
+    }
+
+    return res.json(savedUser);
   }
 }
 

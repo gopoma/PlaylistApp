@@ -2,3 +2,17 @@ extends layouts/main-layout.pug
 
 block content
   h1 Create User View
+
+  form(method="POST", action="/admin/create-user")
+    input(type="text", name="fullname", placeholder="Fullname")
+    input(type="text", name="username", placeholder="Username")
+    input(type="email", name="email", placeholder="Email")
+    input(type="password",  name="password", placeholder="Password")
+    input(type="password", name="passwordRepeated", placeholder="Confirm Passwod")
+    select(name="role")
+      option(value=1) Regular
+      option(value=10) Admin
+    input(type="text", name="profilePicture", placeholder="Profile Picture")
+    input(type="date", name="birthday")
+    input(type="checkbox", name="active" checked=true)
+    button CREATE

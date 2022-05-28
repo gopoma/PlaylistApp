@@ -15,6 +15,7 @@ const app = express();
 app.use(morgan("dev"));
 // Configurando Archivos Estáticos
 app.use(express.static(path.join(__dirname, "static")));
+app.use(express.urlencoded({extended:true}));
 // Configurando Template Engine
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));

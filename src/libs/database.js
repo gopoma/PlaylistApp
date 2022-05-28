@@ -30,14 +30,10 @@ const query = function(sql, data) {
 
 const insert = async function(tableName, data) {
   try {
-    await query("INSERT INTO ??(?) VALUES (?)", [tableName, Object.keys(data), Object.values(data)]);
-    return {
-      inserted: true
-    }
+    const result = await query("INSERT INTO ??(??) VALUES (?)", [tableName, Object.keys(data), Object.values(data)]);
+    return {inserted:true, result};
   } catch(error) {
-    return {
-      inserted: false,
-    };
+    return {inserted:false};
   }
 }
 
