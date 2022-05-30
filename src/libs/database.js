@@ -25,9 +25,8 @@ const query = function(sql, data) {
             const [, value, key] = error.sqlMessage.match(/^.+'(.+)'.+'.+\.(.+)_.+'$/);
             return reject(`The ${key} '${value}' is already in use`);
           default:
-            return reject(error.sqlMessage)
+            return reject(error.sqlMessage);
         }
-        return reject(error);
       }
       return resolve(result);
     })

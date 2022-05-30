@@ -7,7 +7,6 @@ const session = require("express-session");
 const {port, secret} = require("./config");
 // Importando las Rutas
 const auth = require("./routes/auth");
-const admin = require("./routes/admin");
 
 const app = express();
 
@@ -16,6 +15,7 @@ app.use(morgan("dev"));
 // Configurando Archivos Estáticos
 app.use(express.static(path.join(__dirname, "static")));
 app.use(express.urlencoded({extended:true}));
+
 // Configurando Template Engine
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
@@ -28,7 +28,6 @@ app.use(session({
 
 // Utilizando Rutas
 auth(app);
-admin(app);
 
 app.get("/", (req, res) => {
   return res.render("home");

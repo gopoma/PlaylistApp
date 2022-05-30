@@ -18,10 +18,6 @@ class UserModel {
     this.active = (user.active==="on")?1:0;
   }
 
-  #contains(arr, queryItem) {
-    return arr.filter(item => item === queryItem).length > 0;
-  }
-
   validate() {
     const validation = {success:true, errors:[]};
 
@@ -63,6 +59,10 @@ class UserModel {
 
     const result = await insert("users", user);
     return {...result, user};
+  }
+
+  #contains(arr, queryItem) {
+    return arr.filter(item => item === queryItem).length > 0;
   }
 
   async #encrypt(str) {
