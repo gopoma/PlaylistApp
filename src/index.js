@@ -30,7 +30,14 @@ app.use(session({
 auth(app);
 
 app.get("/", (req, res) => {
-  return res.render("home");
+  return res.render("home", {
+    username: "gopoma",
+    friends: ["Gustavo", "César", "Ronald"],
+    pet: {
+      type: "hamster",
+      age: 2
+    }
+  });
 });
 app.get("/notAllowed", (req, res) => {
   return res.render("notAllowed");
