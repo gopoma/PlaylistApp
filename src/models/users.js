@@ -75,6 +75,10 @@ class UserModel {
   static async getAll() {
     return await query("SELECT * FROM users");
   }
+  static async getByEmail(email) {
+    const [user] = await query("SELECT * FROM users WHERE email=?", [email])
+    return user;
+  }
 }
 
 module.exports = UserModel;

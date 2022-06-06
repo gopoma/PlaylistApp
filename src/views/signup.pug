@@ -1,0 +1,19 @@
+extends layouts/main-layout.pug
+
+block title
+  title SignUp
+
+block content
+  h1 SignUp
+  form(action="/auth/signup" method="POST") 
+    input(type="text", name="fullname", placeholder="Fullname", value=user?user.fullname:null)
+    input(type="text", name="username", placeholder="Username", value=user?user.username:null)
+    input(type="email", name="email", placeholder="Email", value=user?user.email:null)
+    input(type="password", name="password", placeholder="Password")
+    input(type="password", name="passwordRepeated", placeholder="Repeat Password")
+    input(type="text", name="profilePicture", placeholder="Profile Picture", value=user?user.profilePicture:null)
+    input(type="date", name="birthday", value=user?user.birthday:null)
+    button SignUp
+
+  include components/authError.pug
+

@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const session = require("express-session");
 
 // Importando las Variables de Entorno
-const {port, secret} = require("./config");
+const {port, sessionSecret} = require("./config");
 // Importando las Rutas
 const auth = require("./routes/auth");
 
@@ -21,7 +21,7 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 // Configurando la Sesión
 app.use(session({
-  secret,
+  secret: sessionSecret,
   resave: false,
   saveUninitialized: false,
 }));
@@ -30,14 +30,7 @@ app.use(session({
 auth(app);
 
 app.get("/", (req, res) => {
-  return res.render("home", {
-    username: "gopoma",
-    friends: ["Gustavo", "César", "Ronald"],
-    pet: {
-      type: "hamster",
-      age: 2
-    }
-  });
+  return res.render("home");
 });
 app.get("/notAllowed", (req, res) => {
   return res.render("notAllowed");
