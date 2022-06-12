@@ -74,11 +74,9 @@ class UserModel {
     return hash;
   }
 
-  static async getAll() {
-    return await query("SELECT * FROM users");
-  }
   static async getByEmail(email) {
-    const [user] = await query("SELECT * FROM users WHERE email=?", [email])
+    const userData = await query("SELECT * FROM users WHERE email=?", [email])
+    const [user] = userData.result;
     return user;
   }
 }

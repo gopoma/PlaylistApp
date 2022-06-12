@@ -3,36 +3,42 @@ const UserModel = require("../models/users");
 
 class AuthController {
   static getLoginView(req, res) {
-    console.log(req.session);
     return res.render("login");
   }
-
   static async logIn(req, res) {
     const {email, password} = req.body;
     const user = await UserModel.getByEmail(email);
 
     if(!email || !password) {
       return res.render("login", {
-        authError: true,
-        authErrors: ["Fill all the fields"]
+        displayMessages: true,
+        error: true,
+        messages: ["Fill all the fields"]
       });
     }
     if(!user) {
       return res.render("login", {
-        authError: true,
-        authErrors: ["Usuario no registrado"]
+        displayMessages: true,
+        error: true,
+        messages: ["Unregistered user"]
       })
     }
     if(!(await bcrypt.compare(password, user.password))) {
       return res.render("login", {
-        authError: true,
-        authErrors: ["Credenciales incorrectas"]
+        displayMessages: true,
+        error: true,
+        messages: ["Incorrect credentials"]
       });
     }
 
-    req.session.loggedIn = true;
-    req.session.idUser = user.id;
-    return res.json("Logged In");
+    req.session.user = {
+      idUser: user.id,
+      username: user.username,
+      fullname: user.fullname,
+      email: user.email
+    };
+    
+    return res.redirect("/");
   }
 
   static getSignUpView(req, res) {
@@ -51,7 +57,7 @@ class AuthController {
         displayMessages: true,
         error: true,
         messages: validation.errors,
-        user: req.body
+        userData: req.body
       });
     }
 
@@ -62,13 +68,13 @@ class AuthController {
         displayMessages: true,
         error: true,
         messages: [savedUser.message],
-        user: req.body
+        userData: req.body
       });
     }
 
-    req.session.loggedIn = true;
     req.session.user = {
       idUser: savedUser.user.id,
+      username: savedUser.user.username,
       fullname: savedUser.user.fullname,
       email: savedUser.user.email
     };
@@ -77,7 +83,7 @@ class AuthController {
   }
 
   static logOut(req, res) {
-    res.session.destroy();
+    req.session.destroy();
     return res.redirect("/");
   }
 }

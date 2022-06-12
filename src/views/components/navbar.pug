@@ -1,12 +1,33 @@
-nav(class="bg-emerald-900")
-  ul(class="p-5 flex gap-5 text-white")
-    li
-      a(href="/") Home
-    li
-      a(href="/notAllowed") 403
-    li
-      a(href="/xd") 404
-    li
-      a(href="/auth/login") LogIn
-    li
-      a(href="/auth/signup") SignUp
+nav(class="bg-gray-800")
+  div(class="flex justify-between text-gray-400")
+    div(class="flex")
+      a(href="/" class="p-4 hover:text-white hover:bg-gray-700") Home
+      a(href="/notAllowed" class="p-4 hover:text-white hover:bg-gray-700") 403
+      a(href="/xd" class="p-4 hover:text-white hover:bg-gray-700") 404
+      
+      if !user
+        a(href="/auth/login" class="p-4 hover:text-white hover:bg-gray-700") LogIn
+        a(href="/auth/signup" class="p-4 hover:text-white hover:bg-gray-700") SignUp
+    
+    if user
+      div(class="flex")
+        button(class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center", type="button", data-dropdown-toggle="dropdown") 
+          span #{user.username}
+          //- 
+            svg(class="w-4 h-4 ml-2", fill="none", stroke="currentColor", viewBox="0 0 24 24", xmlns="http://www.w3.org/2000/svg")
+              path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M19 9l-7 7-7-7")
+          //
+        //- Profile Dropdown
+        div(class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4", id="dropdown")
+          div(class="px-4 py-3")
+            span(class="block text-sm") #{user.username}
+            span(class="block text-sm font-medium text-gray-900 truncate") #{user.email}
+          ul(class="py-1", aria-labelledby="dropdown")
+            li
+              a(href="#", class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2") Dashboard
+            li
+              a(href="#", class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2") Settings
+            li
+              a(href="#", class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2") Earnings
+            li
+              a(href="/auth/logout", class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2") LogOut

@@ -5,6 +5,8 @@ const session = require("express-session");
 
 // Importando las Variables de Entorno
 const {port, sessionSecret} = require("./config");
+// Importando los Custom Middlewares
+const addSessionToTemplate = require("./middleware/addSessionToTemplate");
 // Importando las Rutas
 const auth = require("./routes/auth");
 
@@ -26,6 +28,8 @@ app.use(session({
   saveUninitialized: false,
 }));
 
+// Utilizando Custom Middlewares
+app.use(addSessionToTemplate);
 // Utilizando Rutas
 auth(app);
 

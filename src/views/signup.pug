@@ -6,11 +6,11 @@ block title
 block content
   h1 SignUp
   form(action="/auth/signup" method="POST") 
-    input(type="text", name="fullname", placeholder="Fullname", value=user?user.fullname:null)
-    input(type="text", name="username", placeholder="Username", value=user?user.username:null)
-    input(type="email", name="email", placeholder="Email", value=user?user.email:null)
+    input(type="text", name="fullname", placeholder="Fullname", value=userData?userData.fullname:null)
+    input(type="text", name="username", placeholder="Username", value=userData?userData.username:null)
+    input(type="email", name="email", placeholder="Email", value=userData?userData.email:null)
     input(type="password", name="password", placeholder="Password")
     input(type="password", name="passwordRepeated", placeholder="Repeat Password")
-    input(type="text", name="profilePicture", placeholder="Profile Picture", value=user?user.profilePicture:null)
-    input(type="date", name="birthday", value=user?user.birthday:null)
+    input(type="text", name="profilePicture", placeholder="Profile Picture", value=userData?userData.profilePicture:null)
+    input(type="date", name="birthday", value=userData?userData.birthday:null)
     button SignUp
