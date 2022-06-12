@@ -16,30 +16,50 @@ const connection = mysql.createPool({
   dateStrings: true
 });
 
-const query = function(sql, data) {
+function queryPromise(sql, data) {
   return new Promise((resolve, reject) => {
     connection.query(sql, data, (error, result) => {
       if(error) {
+        // TODO: Remove this console.log when making the presentation
+        console.log(error);
+        let message = "";
         switch(error.errno) {
           case 1062:
             const [, value, key] = error.sqlMessage.match(/^.+'(.+)'.+'.+\.(.+)_.+'$/);
-            return reject(`The ${key} '${value}' is already in use`);
+            message = `The ${key} '${value}' is already in use`;
+            break;
           default:
-            return reject(error.sqlMessage);
+            message = error.sqlMessage;
         }
+
+        return reject({message});
       }
       return resolve(result);
     })
   });
 }
 
-const insert = async function(tableName, data) {
+async function query(sql, data) {
   try {
-    const result = await query("INSERT INTO ??(??) VALUES (?)", [tableName, Object.keys(data), Object.values(data)]);
-    return {inserted:true, insertedId:result.insertId};
+    const result = await queryPromise(sql, data);
+    return {
+      success: true,
+      result
+    };
   } catch(error) {
-    return {inserted:false, message:error};
+    return {
+      success: false,
+      message: error.message
+    };
   }
+}
+
+const insert = async function(tableName, data) {
+  const result = await query(
+    "INSERT INTO ??(??) VALUES (?)", 
+    [tableName, Object.keys(data), Object.values(data)]
+  );
+  return result;
 }
 
 module.exports = {

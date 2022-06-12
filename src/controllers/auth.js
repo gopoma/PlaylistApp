@@ -38,26 +38,47 @@ class AuthController {
   static getSignUpView(req, res) {
     return res.render("signup");
   }
-
   static async signUp(req, res) {
     // Flattened the sensitive data
     req.body.role = 1;
     req.body.active = "on";
-    console.log(req.body);
 
     const newUser = new UserModel(req.body);
     const validation = newUser.validate();
 
     if(!validation.success) {
       return res.render("signup", {
-        authError: true,
-        authErrors: validation.errors,
+        displayMessages: true,
+        error: true,
+        messages: validation.errors,
         user: req.body
       });
     }
 
     const savedUser = await newUser.save();
-    return res.json(savedUser);
+    
+    if(!savedUser.success) {
+      return res.render("signup", {
+        displayMessages: true,
+        error: true,
+        messages: [savedUser.message],
+        user: req.body
+      });
+    }
+
+    req.session.loggedIn = true;
+    req.session.user = {
+      idUser: savedUser.user.id,
+      fullname: savedUser.user.fullname,
+      email: savedUser.user.email
+    };
+
+    return res.redirect("/");
+  }
+
+  static logOut(req, res) {
+    res.session.destroy();
+    return res.redirect("/");
   }
 }
 

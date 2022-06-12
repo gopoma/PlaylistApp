@@ -1,0 +1,12 @@
+if displayMessages
+  section(class="absolute top-0 right-0")
+    ul(class="flex flex-col gap-2")
+      each message in messages
+        if error
+          li(class="p-2 flex gap-2 justify-between items-center bg-red-100 rounded text-base text-red-700")
+            span= message 
+            span(class="message__closer cursor-pointer hover:text-black") ✘
+        else
+          li(class="p-2 flex gap-2 justify-between items-center bg-blue-100 rounded text-base text-blue-700")
+            span= message 
+            span(class="message__closer cursor-pointer hover:text-black") ✘

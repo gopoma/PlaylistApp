@@ -11,7 +11,7 @@ class UserModel {
     this.email = user.email;
     this.password = user.password;
     this.passwordRepeated = user.passwordRepeated;
-    this.role = Number.parseInt(user.role);
+    this.role = user.role;
     this.profilePicture = user.profilePicture;
     // TODO: Fix this Dangerous built
     this.birthday = (user.birthday)?user.birthday:new Date().toLocaleString().split(" ")[0].split("/").reduceRight((a, x) => `${a}/${x}`);
@@ -25,7 +25,7 @@ class UserModel {
       validation.success = false;
       validation.errors.push("Fill all the fields");
     }
-    if(!this.email.match(/^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(.[a-zA-Z0-9]+)+$/)) {
+    if(!this.email.match(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/)) {
       validation.success = false;
       validation.errors.push("Invalid Email");
     }
@@ -58,7 +58,9 @@ class UserModel {
     };
 
     const result = await insert("users", user);
-    return {...result, user};
+    console.log(result);
+    this.id = result?.result?.insertId;
+    return {...result, user:{...user, id:this.id}};
   }
 
   #contains(arr, queryItem) {
