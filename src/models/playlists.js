@@ -36,6 +36,19 @@ class PlaylistModel {
     const playlists = playlistsData.result;
     return playlists;    
   }
+
+  static async addSong(idPlaylist, idSong) {
+    const songData = await query("SELECT * FROM playlists_songs WHERE id_playlist=? AND id_song=?", [idPlaylist, idSong]);
+    const [song] = songData.result;
+
+    if(song) {
+      return {
+        success: false,
+        message: "Song already in Playlist"
+      };
+    }
+    return await query("INSERT INTO playlists_songs(id_playlist, id_song) VALUES(?, ?)", [idPlaylist, idSong]);
+  }
 }
 
 module.exports = PlaylistModel;

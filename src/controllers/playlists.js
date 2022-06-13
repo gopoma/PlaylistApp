@@ -38,6 +38,14 @@ class PlaylistController {
 
     return res.redirect("/playlists");
   }
+
+  static async addSongToPlaylist(req, res) {
+    const {idPlaylist, idSong} = req.query;
+    const {success, message:failureMessage} = await PlaylistModel.addSong(idPlaylist, idSong);
+    const messages = success?[true, "Song added to Playlist successfully"]:[false, failureMessage];
+    req.flash("status", messages);
+    return res.redirect("/songs");
+  }
 }
 
 module.exports = PlaylistController;

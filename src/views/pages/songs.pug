@@ -6,8 +6,12 @@ block title
 block content
   h1 Songs
 
-  section
+  section(class="bg-gray-100 shadow-md w-10/12 mx-auto")
     each song in songs
-      article(style="margin:1.2rem;padding:1.2rem;background-color:peru;")
-        h3 #{song.title}
-        p #{song.description}
+      article(class="flex gap-5")
+        p #{song.title}
+        div(class="relative")
+          button(class="addBtn") +
+          div(class="absolute hidden left-full top-0 w-max bg-gray-800 ml-2 p-3 text-white")
+            each playlist in playlists
+              a(href=`/playlists/addSong?idPlaylist=${playlist.id}&idSong=${song.id}`) #{playlist.name}

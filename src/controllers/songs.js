@@ -1,9 +1,20 @@
 const SongModel = require("../models/songs");
+const PlaylistModel = require("../models/playlists");
 
 class SongController {
   static async getAll(req, res) {
     const songs = await SongModel.getAll();
-    return res.render("pages/songs", {songs});
+    const playlists = await PlaylistModel.getMyPlaylists(req.session.user.idUser);
+    const status = req.flash("status");
+    const [success, message] = status;
+
+    return res.render("pages/songs", {
+      songs, 
+      playlists,
+      displayMessages: status.length,
+      error: !success,
+      messages: [message]
+    });
   }
 
   static async getCreateView(req, res) {
