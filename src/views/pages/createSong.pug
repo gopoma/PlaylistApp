@@ -1,0 +1,15 @@
+extends ../layouts/main-layout.pug
+
+block title
+  title Create Song
+
+block content
+  h1 Create Song
+  form(action="/songs/create-song", method="POST") 
+    input(type="text", name="title", placeholder="Title...", value="Music #")
+    textarea(name="description", placeholder="Description...", value="Music #")
+    input(type="text", name="thumbnail", placeholder="Thumbnail...", value="Music #")
+    label public?
+      input(type="checkbox", name="public" checked)
+    input(type="text", name="path", placeholder="Song's URL...", value="Music #")
+    button Create Song

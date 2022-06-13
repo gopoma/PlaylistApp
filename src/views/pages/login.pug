@@ -1,0 +1,11 @@
+extends ../layouts/main-layout.pug
+
+block title
+  title Login
+
+block content
+  h1 Login
+  form(action="/auth/login", method="POST") 
+    input(type="email", name="email", placeholder="Email", value="gopoma@gmail.com")
+    input(type="password", name="password", placeholder="Password", value="12345")
+    button Login

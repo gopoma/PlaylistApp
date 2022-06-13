@@ -1,0 +1,12 @@
+extends ../layouts/main-layout.pug
+
+block title
+  title My Playlists
+
+block content
+  h1 My Playlists
+
+  section
+    each playlist in playlists
+      article(class="m-2 p-4 bg-slate-800 text-white")
+        h3 #{playlist.name}

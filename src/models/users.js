@@ -33,7 +33,7 @@ class UserModel {
       validation.success = false;
       validation.errors.push("Username less than 3 characters");
     }
-    if(!this.#contains([1, 10], this.role)) {
+    if(!this.#contains([1, 10, 25], this.role)) {
       validation.success = false;
       validation.errors.push("Invalid role");
     }

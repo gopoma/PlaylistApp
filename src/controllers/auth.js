@@ -3,28 +3,28 @@ const UserModel = require("../models/users");
 
 class AuthController {
   static getLoginView(req, res) {
-    return res.render("login");
+    return res.render("pages/login");
   }
   static async logIn(req, res) {
     const {email, password} = req.body;
     const user = await UserModel.getByEmail(email);
 
     if(!email || !password) {
-      return res.render("login", {
+      return res.render("pages/login", {
         displayMessages: true,
         error: true,
         messages: ["Fill all the fields"]
       });
     }
     if(!user) {
-      return res.render("login", {
+      return res.render("pages/login", {
         displayMessages: true,
         error: true,
         messages: ["Unregistered user"]
       })
     }
     if(!(await bcrypt.compare(password, user.password))) {
-      return res.render("login", {
+      return res.render("pages/login", {
         displayMessages: true,
         error: true,
         messages: ["Incorrect credentials"]
@@ -32,17 +32,19 @@ class AuthController {
     }
 
     req.session.user = {
+      loggedIn: true,
       idUser: user.id,
       username: user.username,
       fullname: user.fullname,
-      email: user.email
+      email: user.email,
+      role: user.role
     };
     
     return res.redirect("/");
   }
 
   static getSignUpView(req, res) {
-    return res.render("signup");
+    return res.render("pages/signup");
   }
   static async signUp(req, res) {
     // Flattened the sensitive data
@@ -53,7 +55,7 @@ class AuthController {
     const validation = newUser.validate();
 
     if(!validation.success) {
-      return res.render("signup", {
+      return res.render("pages/signup", {
         displayMessages: true,
         error: true,
         messages: validation.errors,
@@ -64,7 +66,7 @@ class AuthController {
     const savedUser = await newUser.save();
     
     if(!savedUser.success) {
-      return res.render("signup", {
+      return res.render("pages/signup", {
         displayMessages: true,
         error: true,
         messages: [savedUser.message],
@@ -73,10 +75,12 @@ class AuthController {
     }
 
     req.session.user = {
+      loggedIn: true,
       idUser: savedUser.user.id,
       username: savedUser.user.username,
       fullname: savedUser.user.fullname,
-      email: savedUser.user.email
+      email: savedUser.user.email,
+      role: savedUser.user.role
     };
 
     return res.redirect("/");
