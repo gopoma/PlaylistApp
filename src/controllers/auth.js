@@ -39,7 +39,7 @@ class AuthController {
       email: user.email,
       role: user.role
     };
-    
+    req.flash("status", ["Successfully logged in"]);
     return res.redirect("/");
   }
 
@@ -82,7 +82,7 @@ class AuthController {
       email: savedUser.user.email,
       role: savedUser.user.role
     };
-
+    req.flash("status", ["User registered successfully"]);
     return res.redirect("/");
   }
 

@@ -47,7 +47,12 @@ songs(app);
 playlists(app);
 
 app.get("/", (req, res) => {
-  return res.render("pages/home");
+  const status = req.flash("status");
+  return res.render("pages/home", {
+    displayMessages: status.length > 0,
+    error: false,
+    messages: status
+  });
 });
 app.get("/notAllowed", (req, res) => {
   return res.render("pages/notAllowed");

@@ -12,6 +12,7 @@ block content
         p #{song.title}
         div(class="relative")
           button(class="addBtn") +
-          div(class="absolute hidden left-full top-0 w-max bg-gray-800 ml-2 p-3 text-white")
-            each playlist in playlists
-              a(href=`/playlists/addSong?idPlaylist=${playlist.id}&idSong=${song.id}`) #{playlist.name}
+          div(class="absolute hidden left-full top-0 w-max bg-gray-800 ml-2 text-white")
+            div(class="flex flex-col")
+              each playlist in playlists
+                a(class="p-2 hover:bg-emerald-900", href=`/playlists/addSong?idPlaylist=${playlist.id}&idSong=${song.id}`) #{playlist.name}

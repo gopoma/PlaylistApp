@@ -2,8 +2,15 @@ const PlaylistModel = require("../models/playlists");
 
 class PlaylistController {
   static async getMyPlaylists(req, res) {
+    const status = req.flash("status");
+    const [success, message] = status;
     const playlists = await PlaylistModel.getMyPlaylists(req.session.user.idUser);
-    return res.render("pages/playlists", {playlists});
+    return res.render("pages/playlists", {
+      playlists,
+      displayMessages: status.length > 0,
+      error: !success,
+      messages: [message]
+    });
   }
 
   static getCreateView(req, res) {
@@ -36,6 +43,7 @@ class PlaylistController {
       });
     }
 
+    req.flash("status", [true, "Playlist created successfully"]);
     return res.redirect("/playlists");
   }
 

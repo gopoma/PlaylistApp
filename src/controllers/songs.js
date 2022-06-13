@@ -47,6 +47,7 @@ class SongController {
       });
     }
 
+    req.flash("status", [true, "Song created successfully"]);
     return res.redirect("/songs");
   }
 }
