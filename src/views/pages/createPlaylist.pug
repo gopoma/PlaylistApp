@@ -1,0 +1,11 @@
+extends ../layouts/main-layout.pug
+
+block title
+  title CREATE Playlist
+
+block content
+  h1 CREATE Playlist
+  
+  form(action="/playlists/create-playlist", method="POST")
+    input(type="text", name="name", placeholder="Name...", value=playlistData?playlistData.name:null)
+    button CREATE Playlist

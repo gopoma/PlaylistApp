@@ -2,13 +2,12 @@ nav(class="bg-gray-800")
   div(class="flex justify-between text-gray-400")
     div(class="flex")
       a(href="/" class="p-4 hover:text-white hover:bg-gray-700") Home
-      a(href="/notAllowed" class="p-4 hover:text-white hover:bg-gray-700") 403
-      a(href="/xd" class="p-4 hover:text-white hover:bg-gray-700") 404
       
       if user
         a(href="/songs", class="p-4 hover:text-white hover:bg-gray-700") Songs
         a(href="/songs/create-song", class="p-4 hover:text-white hover:bg-gray-700") Create Song
         a(href="/playlists", class="p-4 hover:text-white hover:bg-gray-700") My Playlists
+        a(href="/playlists/create-playlist", class="p-4 hover:text-white hover:bg-gray-700") Create Playlist
       else
         a(href="/auth/login" class="p-4 hover:text-white hover:bg-gray-700") LogIn
         a(href="/auth/signup" class="p-4 hover:text-white hover:bg-gray-700") SignUp

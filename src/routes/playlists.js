@@ -8,6 +8,8 @@ function playlists(app) {
   app.use("/playlists", router);
 
   router.get("/", PlaylistController.getMyPlaylists);
+  router.get("/create-playlist", PlaylistController.getCreateView);
+  router.post("/create-playlist", PlaylistController.create);
 }
 
 module.exports = playlists;

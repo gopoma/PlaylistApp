@@ -12,7 +12,8 @@ class SongController {
   static async create(req, res) {
     const newSong = new SongModel({
       ...req.body,
-      publisher: req.session.user.idUser
+      publisher: req.session.user.idUser,
+      public: "on"
     });
 
     const {success, errors} = newSong.validate();
@@ -20,7 +21,8 @@ class SongController {
       return res.render("pages/createSong", {
         displayMessages: true,
         error: true,
-        messages: errors
+        messages: errors,
+        songData: req.body
       });
     }
 
@@ -29,7 +31,8 @@ class SongController {
       return res.render("pages/createSong", {
         displayMessages: true,
         error: true,
-        messages: [savedSong.message]
+        messages: [savedSong.message],
+        songData: req.body
       });
     }
 
