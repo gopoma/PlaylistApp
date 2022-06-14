@@ -4,4 +4,19 @@ block title
   title Home
 
 block content
-  h1 Home
+  main(class="flex justify-center", style="min-height:79vh;")
+    section(class="w-1/2 mt-4")
+      h2(class="text-xl font-bold") Bienvenido #{user?user.username:null}
+      p 
+        | Este sistema fue desarrollado para el 
+        b Tzuzul Code Bootcamp 
+        | haciendo uso de la 
+        b Arquitectura Modelo Vista Controlador (MVC).
+      p El sistema fué desarrollado usando estas tecnologías:
+      ul
+        li(class="ml-4 list-disc") HTML y CSS a través del framework TailwindCSS.
+        li(class="ml-4 list-disc") NodeJS para el backend a través del framework Express.
+        li(class="ml-4 list-disc") MySQL para la base de datos.
+        li(class="ml-4 list-disc") Pug para renderizar las vistas.
+        li(class="ml-4 list-disc") Javascript para el frontend.
+        li(class="ml-4 list-disc") La comunicación entre el cliente y el servidor se hizo usando JSON de manera asíncrona.
