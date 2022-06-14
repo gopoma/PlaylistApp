@@ -1,11 +1,11 @@
 extends ../layouts/main-layout.pug
 
 block title
-  title CREATE Playlist
+  title Create Playlist
 
 block content
-  h1 CREATE Playlist
-  
-  form(action="/playlists/create-playlist", method="POST")
-    input(type="text", name="name", placeholder="Name...", value=playlistData?playlistData.name:null)
-    button CREATE Playlist
+  main(class="flex flex-col gap-2 justify-center items-center", style="min-height:79vh;")
+    h1(class="text-2xl font-bold") Create Playlist
+    form(class="bg-gray-100 flex flex-col w-1/2 p-10 gap-4", action="/playlists/create-playlist", method="POST")
+      input(class="p-2", type="text", name="name", placeholder="Name", value=playlistData?playlistData.name:null)
+      button(class="inline-block p-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out") Create Playlist

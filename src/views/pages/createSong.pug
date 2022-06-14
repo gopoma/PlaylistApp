@@ -4,10 +4,11 @@ block title
   title Create Song
 
 block content
-  h1 Create Song
-  form(action="/songs/create-song", method="POST") 
-    input(type="text", name="title", placeholder="Title...", value=songData?songData.title:null)
-    textarea(name="description", placeholder="Description...") #{songData?songData.description:null}
-    input(type="text", name="thumbnail", placeholder="Thumbnail...", value=songData?songData.thumbnail:null)
-    input(type="text", name="path", placeholder="Song's URL...", value=songData?songData.path:null)
-    button Create Song
+  main(class="flex flex-col gap-2 justify-center items-center", style="min-height:79vh;")
+    h1(class="text-2xl font-bold") Create Song
+    form(class="bg-gray-100 flex flex-col w-1/2 p-10 gap-4", action="/songs/create-song", method="POST") 
+      input(class="p-2", type="text", name="title", placeholder="Title...", value=songData?songData.title:null)
+      textarea(class="p-2", name="description", placeholder="Description...") #{songData?songData.description:null}
+      input(class="p-2", type="text", name="thumbnail", placeholder="Thumbnail...", value=songData?songData.thumbnail:null)
+      input(class="p-2", type="text", name="path", placeholder="Song's URL...", value=songData?songData.path:null)
+      button(class="inline-block p-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out") Create Song

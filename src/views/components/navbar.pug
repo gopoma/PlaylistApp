@@ -1,11 +1,14 @@
 nav(class="bg-gray-800")
-  div(class="flex justify-between text-gray-400")
-    div(class="flex")
-      a(href="/" class="p-4 hover:text-white hover:bg-gray-700") Home
+  div(class="flex justify-between items-center text-gray-400")
+    div(class="flex items-center")
+      a(href="/" class="p-4 flex gap-2 hover:text-white hover:bg-gray-700")
+        img(class="block h-6 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow")
+        span MusicalEasy
       
       if user
         a(href="/songs", class="p-4 hover:text-white hover:bg-gray-700") Songs
-        a(href="/songs/create-song", class="p-4 hover:text-white hover:bg-gray-700") Create Song
+        if (user.role >= 5)
+          a(href="/songs/create-song", class="p-4 hover:text-white hover:bg-gray-700") Create Song
         a(href="/playlists", class="p-4 hover:text-white hover:bg-gray-700") My Playlists
         a(href="/playlists/create-playlist", class="p-4 hover:text-white hover:bg-gray-700") Create Playlist
       else

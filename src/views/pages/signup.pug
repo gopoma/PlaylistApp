@@ -4,7 +4,7 @@ block title
   title SignUp
 
 block content
-  main(class="flex flex-col gap-4 justify-center items-center", style="min-height:79vh;")
+  main(class="flex flex-col gap-2 justify-center items-center", style="min-height:79vh;")
     h1(class="text-2xl font-bold") SignUp
     form(class="bg-gray-100 flex flex-col w-1/2 p-10 gap-2", action="/auth/signup" method="POST") 
       input(class="p-2", type="text", name="fullname", placeholder="Fullname", value=userData?userData.fullname:null)
