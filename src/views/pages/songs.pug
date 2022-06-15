@@ -11,8 +11,6 @@ block content
       article(class="flex gap-5")
         p #{song.title}
         div(class="relative")
-          button(class="addBtn") +
+          button(class="addBtn", data-id-song=song.id) +
           div(class="absolute hidden left-full top-0 w-max bg-gray-800 ml-2 text-white")
-            div(class="flex flex-col")
-              each playlist in playlists
-                a(class="p-2 hover:bg-emerald-900", href=`/playlists/addSong?idPlaylist=${playlist.id}&idSong=${song.id}`) #{playlist.name}
+            div(id=`playlistElement${song.id}`, class="flex flex-col")

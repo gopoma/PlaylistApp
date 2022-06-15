@@ -10,7 +10,9 @@ function playlists(app) {
   router.get("/", PlaylistController.getMyPlaylists);
   router.get("/create-playlist", PlaylistController.getCreateView);
   router.post("/create-playlist", PlaylistController.create);
+  router.get("/relatedPlaylists/:idSong", PlaylistController.getRelatedPlaylists);
   router.get("/addSong", PlaylistController.addSongToPlaylist);
+  router.get("/removeSong", PlaylistController.removeSongToPlaylist);
 }
 
 module.exports = playlists;

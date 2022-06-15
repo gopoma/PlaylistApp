@@ -37,6 +37,10 @@ class PlaylistModel {
     return playlists;    
   }
 
+  static async getRelatedPlaylists(idSong, owner) {
+    return await query("SELECT id, name, id IN (SELECT playlists.id FROM playlists_songs JOIN playlists ON playlists_songs.id_playlist=playlists.id WHERE id_song=?) AS containsSong FROM playlists WHERE owner=?", [idSong, owner]);
+  }
+
   static async addSong(idPlaylist, idSong) {
     const songData = await query("SELECT * FROM playlists_songs WHERE id_playlist=? AND id_song=?", [idPlaylist, idSong]);
     const [song] = songData.result;
@@ -48,6 +52,10 @@ class PlaylistModel {
       };
     }
     return await query("INSERT INTO playlists_songs(id_playlist, id_song) VALUES(?, ?)", [idPlaylist, idSong]);
+  }
+  
+  static async removeSong(idPlaylist, idSong) {
+    return await query("DELETE FROM playlists_songs WHERE id_playlist=? AND id_song=?", [idPlaylist, idSong]);
   }
 }
 

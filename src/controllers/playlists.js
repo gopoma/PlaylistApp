@@ -47,6 +47,14 @@ class PlaylistController {
     return res.redirect("/playlists");
   }
 
+  static async getRelatedPlaylists(req, res) {
+    console.log(req.params.idSong);
+    console.log(req.session.user.idUser);
+    const {success, result:playlists} = await PlaylistModel.getRelatedPlaylists(req.params.idSong, req.session.user.idUser);
+    console.log(playlists);
+    return res.status(success?200:400).json(playlists);
+  }
+
   static async addSongToPlaylist(req, res) {
     const {idPlaylist, idSong} = req.query;
     const {success, message:failureMessage} = await PlaylistModel.addSong(idPlaylist, idSong);
@@ -54,6 +62,14 @@ class PlaylistController {
     req.flash("status", messages);
     return res.redirect("/songs");
   }
+
+  static async removeSongToPlaylist(req, res) {
+    const {idPlaylist, idSong} = req.query;
+    const {success, message:failureMessage} = await PlaylistModel.removeSong(idPlaylist, idSong);
+    const messages = success?[true, "Song removed to Playlist successfully"]:[false, failureMessage];
+    req.flash("status", messages);
+    return res.redirect("/songs");
+  } 
 }
 
 module.exports = PlaylistController;
