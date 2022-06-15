@@ -4,9 +4,12 @@ block title
   title My Playlists
 
 block content
-  h1 My Playlists
-
-  section
-    each playlist in playlists
-      article(class="m-2 p-4 bg-slate-800 text-white")
-        h3 #{playlist.name}
+  main(class="flex flex-col gap-2 items-center", style="min-height:79vh;")
+    h1(class="text-2xl font-bold") My Playlists
+    section(class="mb-2 flex flex-col gap-2 w-10/12 mx-auto")
+      each playlist in playlists
+        article(class="p-4 flex gap-2 justify-between items-center bg-slate-800 text-white")
+          div
+            h3 #{playlist.name}
+          div
+            a(href=`/playlists/${playlist.id}/songs`, class="px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out") Have a View!

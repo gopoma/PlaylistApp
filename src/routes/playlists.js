@@ -8,6 +8,7 @@ function playlists(app) {
   app.use("/playlists", router);
 
   router.get("/", PlaylistController.getMyPlaylists);
+  router.get("/:idPlaylist/songs", PlaylistController.getSongsFromPlaylist);
   router.get("/create-playlist", PlaylistController.getCreateView);
   router.post("/create-playlist", PlaylistController.create);
   router.get("/relatedPlaylists/:idSong", PlaylistController.getRelatedPlaylists);

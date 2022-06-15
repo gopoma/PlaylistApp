@@ -35,7 +35,7 @@ class SongModel {
   }
 
   static async getAll() {
-    const songsData = await query("SELECT * FROM songs");
+    const songsData = await query("SELECT * FROM songs ORDER by id DESC");
     const songs = songsData.result;
     return songs;
   }

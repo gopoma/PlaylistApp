@@ -4,13 +4,26 @@ block title
   title Songs
 
 block content
-  h1 Songs
-
-  section(class="bg-gray-100 shadow-md w-10/12 mx-auto")
-    each song in songs
-      article(class="flex gap-5")
-        p #{song.title}
-        div(class="relative")
-          button(class="addBtn", data-id-song=song.id) +
-          div(class="absolute hidden left-full top-0 w-max bg-gray-800 ml-2 text-white")
-            div(id=`playlistElement${song.id}`, class="flex flex-col")
+  main(class="flex flex-col gap-2 items-center", style="min-height:79vh;")
+    if playlist
+      h1(class="text-2xl font-bold") #{playlist.name}
+    else 
+      h1(class="text-2xl font-bold") Songs
+    section(class="pb-2 flex gap-2 flex-col w-10/12 mx-auto")
+      each song in songs
+        article(class="p-2 flex bg-gray-800")
+          div(class="w-56 bg-blue-900")
+            a(href="#!" class="flex justify-center items-center")
+              img(src=song.thumbnail, alt="", style="height:10.25rem;")
+          div(class="w-full p-2 flex justify-between items-center bg-gray-100 text-center")
+            div(class="flex flex-col justify-center")
+              h5(class="text-left text-gray-900 text-xl font-medium mb-2") #{song.title}
+              p(class="text-gray-700 text-base mb-4") #{song.description}
+            div
+              if displayDeleteMessage
+                a(class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white uppercase text-sm font-medium rounded-md", href=`/playlists/removeSong?idPlaylist=${idPlaylist}&idSong=${song.id}&deletedFromPlaylist=true&redirectURL=/playlists/${idPlaylist}/songs`) Delete from Playlist
+              else
+                div(class="relative")
+                  button(type="button", data-id-song=song.id, class="addBtn px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out") Guardar en...
+                  div(class="absolute z-20 hidden left-1/2 top-0 w-max bg-gray-800 ml-2 text-white")
+                    div(id=`playlistElement${song.id}`, class="flex flex-col")

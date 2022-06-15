@@ -48,10 +48,7 @@ class PlaylistController {
   }
 
   static async getRelatedPlaylists(req, res) {
-    console.log(req.params.idSong);
-    console.log(req.session.user.idUser);
     const {success, result:playlists} = await PlaylistModel.getRelatedPlaylists(req.params.idSong, req.session.user.idUser);
-    console.log(playlists);
     return res.status(success?200:400).json(playlists);
   }
 
@@ -64,12 +61,29 @@ class PlaylistController {
   }
 
   static async removeSongToPlaylist(req, res) {
-    const {idPlaylist, idSong} = req.query;
+    const {idPlaylist, idSong, deletedFromPlaylist, redirectURL} = req.query;
     const {success, message:failureMessage} = await PlaylistModel.removeSong(idPlaylist, idSong);
     const messages = success?[true, "Song removed to Playlist successfully"]:[false, failureMessage];
     req.flash("status", messages);
+
+    if(deletedFromPlaylist) {
+      return res.redirect(redirectURL);
+    }
     return res.redirect("/songs");
-  } 
+  }
+
+  static async getSongsFromPlaylist(req, res) {
+    const { idPlaylist } = req.params;
+    const {result:playlists} = await PlaylistModel.getById(idPlaylist);
+    const [playlist] = playlists;
+    const {result:songs} = await PlaylistModel.getSongsFromPlaylists(idPlaylist);
+    return res.render("pages/songs", {
+      displayDeleteMessage: true,
+      idPlaylist: idPlaylist,
+      playlist,
+      songs,
+    });
+  }
 }
 
 module.exports = PlaylistController;
