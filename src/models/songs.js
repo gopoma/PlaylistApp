@@ -35,9 +35,13 @@ class SongModel {
   }
 
   static async getAll() {
-    const songsData = await query("SELECT * FROM songs ORDER by id DESC");
-    const songs = songsData.result;
-    return songs;
+    return await query(`
+      SELECT songs.id, songs.publisher, songs.title, songs.description, songs.thumbnail, songs.public, songs.path, songs.genre,
+      users.id AS publisher_id, users.username AS publisher_username
+      FROM songs 
+      JOIN users 
+      ON songs.publisher=users.id ORDER BY songs.id DESC;
+    `);
   }
 }
 

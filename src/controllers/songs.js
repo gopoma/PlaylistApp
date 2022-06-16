@@ -2,7 +2,7 @@ const SongModel = require("../models/songs");
 
 class SongController {
   static async getAll(req, res) {
-    const songs = await SongModel.getAll();
+    const {result:songs} = await SongModel.getAll();
     const status = req.flash("status");
     const [success, message] = status;
 
