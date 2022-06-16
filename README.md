@@ -1,4 +1,4 @@
-g# MusicalEasy
+# MusicalEasy
 
 Este sistema fue desarrollado haciendo uso de la **Arquitectura** `Modelo Vista Controlador (MVC)`.
 
