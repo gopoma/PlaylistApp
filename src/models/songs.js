@@ -8,6 +8,7 @@ class SongModel {
     this.thumbnail = song.thumbnail;
     this.public = (song.public==="on")?1:0;
     this.path = song.path;
+    this.genre = song.genre;
   }
 
   validate() {
@@ -28,7 +29,8 @@ class SongModel {
       description: this.description,
       thumbnail: this.thumbnail,
       public: this.public,
-      path: this.path
+      path: this.path,
+      genre: this.genre
     };
 
     return await insert("songs", songData);
