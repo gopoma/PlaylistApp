@@ -42,8 +42,45 @@ class SongModel {
       users.id AS publisher_id, users.username AS publisher_username
       FROM songs 
       JOIN users 
-      ON songs.publisher=users.id ORDER BY songs.id DESC;
+      ON songs.publisher=users.id 
+      ORDER BY songs.id DESC;
     `);
+  }
+
+  static async filterByGenre(genre) {
+    return await query(`
+      SELECT songs.id, songs.publisher, songs.title, songs.description, songs.thumbnail, songs.public, songs.path, songs.genre,
+      users.id AS publisher_id, users.username AS publisher_username
+      FROM songs 
+      JOIN users
+      ON songs.publisher=users.id
+      WHERE songs.genre=?
+      ORDER BY songs.id DESC;
+    `, [genre]);
+  }
+
+  static async filterByTitle(title) {
+    return await query(`
+      SELECT songs.id, songs.publisher, songs.title, songs.description, songs.thumbnail, songs.public, songs.path, songs.genre,
+      users.id AS publisher_id, users.username AS publisher_username
+      FROM songs 
+      JOIN users
+      ON songs.publisher=users.id
+      WHERE songs.title LIKE ?
+      ORDER BY songs.id DESC;
+    `, [`%${title}%`]);
+  }
+
+  static async filterByGenreAndTitle(genre, title) {
+    return await query(`
+      SELECT songs.id, songs.publisher, songs.title, songs.description, songs.thumbnail, songs.public, songs.path, songs.genre,
+      users.id AS publisher_id, users.username AS publisher_username
+      FROM songs 
+      JOIN users
+      ON songs.publisher=users.id
+      WHERE songs.genre=? AND songs.title LIKE ?
+      ORDER BY songs.id DESC;
+    `, [genre, `%${title}%`]);
   }
 }
 

@@ -12,11 +12,12 @@ block content
       input(class="p-2", type="text", name="thumbnail", placeholder="Thumbnail...", value=songData?songData.thumbnail:null)
       input(class="p-2", type="text", name="path", placeholder="Song's URL...", value=songData?songData.path:null)
       select(name="genre", class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5")
-        option(selected) Choose a genre
+        option(value="other", selected) Choose a genre
         option(value="blues") Blues
         option(value="easy listening") Easy Listening
         option(value="electronic") Electronic
         option(value="jazz") Jazz
         option(value="pop") Pop
         option(value="rock") Rock
+        option(value="other") Other
       button(class="inline-block p-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out") Create Song

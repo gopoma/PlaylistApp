@@ -47,6 +47,29 @@ class SongController {
     req.flash("status", [true, "Song created successfully"]);
     return res.redirect("/songs");
   }
+
+  static async getFilteredSongs(req, res) {
+    const { genre, title } = req.query;
+    let songs;
+    if(!genre && !title) {
+      return this.getAll(req, res);
+    } else if(genre && !title) {
+      songs = (await SongModel.filterByGenre(genre)).result;
+    } else if(!genre && title) {
+      songs = (await SongModel.filterByTitle(title)).result;
+    } else {
+      songs = (await SongModel.filterByGenreAndTitle(genre, title)).result;
+    }
+    const status = req.flash("status");
+    const [success, message] = status;
+
+    return res.render("pages/songs", {
+      songs, 
+      displayMessages: status.length,
+      error: !success,
+      messages: [message]
+    });
+  }
 }
 
 module.exports = SongController;

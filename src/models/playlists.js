@@ -64,13 +64,13 @@ class PlaylistModel {
 
   static async getSongsFromPlaylists(idPlaylist) {
     return await query(`
-      SELECT songs.id, songs.title, songs.description, songs.thumbnail, songs.path, songs.genre, users.id AS publisher_id, users.username AS publisher_username
+      SELECT songs.id, songs.title, songs.description, songs.thumbnail, songs.path, users.id AS publisher_id, users.username AS publisher_username
       FROM playlists_songs 
       JOIN songs 
       ON playlists_songs.id_song=songs.id 
       JOIN users
       ON songs.publisher=users.id
-      WHERE playlists_songs.id_playlist=?;
+      WHERE playlists_songs.id_playlist=?
     `, [idPlaylist]);
   }
 }

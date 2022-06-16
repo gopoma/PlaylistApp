@@ -9,6 +9,7 @@ function songs(app) {
   app.use("/songs", router);
 
   router.get("/", SongController.getAll);
+  router.get("/search", SongController.getFilteredSongs.bind(SongController));
   router.get("/create-song", validateRole(5), SongController.getCreateView);
   router.post("/create-song", validateRole(5), SongController.create);
 }
