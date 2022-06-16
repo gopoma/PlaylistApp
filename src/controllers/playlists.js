@@ -78,6 +78,7 @@ class PlaylistController {
     const [playlist] = playlists;
     const {result:songs} = await PlaylistModel.getSongsFromPlaylists(idPlaylist);
     return res.render("pages/songs", {
+      hiddenNavbar: true,
       displayDeleteMessage: true,
       idPlaylist: idPlaylist,
       playlist,
