@@ -11,6 +11,7 @@ addBtns.forEach(btn => {
     const playlistElement = document.querySelector(`#playlistElement${idSong}`);
     const response = await fetch(`/playlists/relatedPlaylists/${idSong}`);
     const relatedPlaylists = await response.json();
+    playlistElement.innerHTML = "";
     relatedPlaylists.forEach(relatedPlaylist => {
       playlistElement.innerHTML += `
         <a class="p-2 inline-flex gap-2 items-center hover:bg-emerald-900" href="/playlists/${!relatedPlaylist.containsSong?"addSong":"removeSong"}?idPlaylist=${relatedPlaylist.id}&idSong=${idSong}">
